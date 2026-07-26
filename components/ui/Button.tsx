@@ -5,8 +5,11 @@ import type { ButtonHTMLAttributes } from "react";
 type ButtonVariant = "primary" | "secondary" | "outline" | "outlineLight" | "ghost";
 type ButtonSize = "md" | "lg";
 
+// Scoped to only the properties that actually change — animating every
+// property off the GPU is wasteful. active:scale gives every button subtle,
+// universal press feedback (100-160ms budget, 0.95-0.98 range).
 const baseStyles =
-  "inline-flex items-center justify-center gap-2 rounded-lg font-semibold uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 min-h-11";
+  "inline-flex items-center justify-center gap-2 rounded-lg font-semibold uppercase tracking-wider transition-[color,background-color,border-color,box-shadow,transform] duration-150 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 min-h-11";
 
 // Each variant owns its border/text/background colors outright rather than
 // relying on a caller's className to override them — same-specificity

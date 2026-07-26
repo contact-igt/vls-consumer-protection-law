@@ -118,8 +118,20 @@ export function Header() {
         </div>
       </Container>
 
-      {isMenuOpen && (
-        <div id="mobile-menu" className="border-t border-brand-gray-200 bg-white lg:hidden">
+      {/* Always rendered (never mount/unmount) so the open/close is an
+          interruptible CSS transition rather than an abrupt teleport —
+          grid-template-rows is animatable and content-size-aware, unlike
+          height. `inert` removes it from focus/AT order while collapsed
+          without needing a second visibility mechanism. */}
+      <div
+        id="mobile-menu"
+        inert={!isMenuOpen}
+        className={cn(
+          "grid border-t border-brand-gray-200 bg-white transition-[grid-template-rows] duration-300 ease-drawer lg:hidden",
+          isMenuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        )}
+      >
+        <div className="overflow-hidden">
           <Container className="flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
               <a
@@ -127,7 +139,7 @@ export function Header() {
                 href={link.href}
                 onClick={handleNavClick}
                 className={cn(
-                  "rounded-md px-3 py-3 text-base font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500",
+                  "rounded-md px-3 py-3 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500",
                   activeId === link.id ? "bg-brand-red-50 text-brand-red-600" : "text-brand-black"
                 )}
               >
@@ -147,7 +159,7 @@ export function Header() {
             </Button>
           </Container>
         </div>
-      )}
+      </div>
     </header>
   );
 }

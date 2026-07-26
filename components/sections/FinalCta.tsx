@@ -1,31 +1,13 @@
-import { CalendarDays, Clock, Timer, MonitorSmartphone, Languages, IndianRupee } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TrackedButton } from "@/components/ui/TrackedButton";
 import { Countdown } from "@/components/ui/Countdown";
 import { masterclass } from "@/data/masterclass";
 import { isConfirmed } from "@/lib/utils";
+import { getMasterclassDetails } from "@/lib/content";
 import { getWhatsappUrl } from "@/lib/whatsapp";
 
 export function FinalCta() {
-  const details = [
-    { icon: CalendarDays, label: "Date", value: masterclass.displayDate },
-    {
-      icon: Clock,
-      label: "Time",
-      value:
-        isConfirmed(masterclass.startTime) && isConfirmed(masterclass.endTime)
-          ? `${masterclass.startTime} – ${masterclass.endTime} ${masterclass.timeZone}`
-          : "To Be Confirmed",
-    },
-    { icon: Timer, label: "Duration", value: masterclass.duration },
-    { icon: MonitorSmartphone, label: "Format", value: isConfirmed(masterclass.format) ? masterclass.format : "To Be Confirmed" },
-    { icon: Languages, label: "Language", value: masterclass.language },
-    {
-      icon: IndianRupee,
-      label: "Fee",
-      value: masterclass.fee !== null ? `₹${masterclass.fee.toLocaleString("en-IN")}` : "To Be Confirmed",
-    },
-  ];
+  const details = getMasterclassDetails({ includeFee: true });
 
   return (
     <section className="bg-brand-charcoal py-16 text-white sm:py-24">
