@@ -1,12 +1,13 @@
 import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
+import { BrandImage } from "@/components/ui/BrandImage";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { masterclass } from "@/data/masterclass";
+import { VLS_ASSETS } from "@/lib/assets";
 
 export function WhyVls() {
   return (
-    <section className="bg-brand-black py-16 text-white sm:py-24">
+    <section className="bg-brand-charcoal py-16 text-white sm:py-24">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
@@ -31,9 +32,27 @@ export function WhyVls() {
           </div>
 
           <FadeIn className="grid grid-cols-2 gap-4">
-            <PlaceholderImage label="VLS Academy Training Session" aspect="portrait" className="col-span-2 border-white/20 bg-white/5 sm:col-span-1" />
-            <PlaceholderImage label="VLS Classroom" aspect="square" className="border-white/20 bg-white/5" />
-            <PlaceholderImage label="VLS Students" aspect="square" className="border-white/20 bg-white/5" />
+            <BrandImage
+              src={VLS_ASSETS.training01}
+              alt="VLS Law Academy training session"
+              aspect="portrait"
+              sizes="(min-width: 1024px) 25vw, 50vw"
+              className="col-span-2 shadow-card-hover sm:col-span-1"
+            />
+            <BrandImage
+              src={VLS_ASSETS.training02}
+              alt="VLS Law Academy classroom"
+              aspect="square"
+              sizes="(min-width: 1024px) 25vw, 50vw"
+              className="shadow-card-hover"
+            />
+            <BrandImage
+              src={VLS_ASSETS.students01}
+              alt="VLS Law Academy students"
+              aspect="square"
+              sizes="(min-width: 1024px) 25vw, 50vw"
+              className="shadow-card-hover"
+            />
           </FadeIn>
         </div>
       </Container>

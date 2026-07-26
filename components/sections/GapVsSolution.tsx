@@ -8,7 +8,7 @@ import { toDurationAdjective } from "@/lib/utils";
 
 export function GapVsSolution() {
   return (
-    <section className="bg-brand-gray-50 py-16 sm:py-24">
+    <section className="bg-brand-red-50 py-16 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="The Practical Reality"

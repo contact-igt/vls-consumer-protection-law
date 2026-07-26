@@ -28,7 +28,7 @@ export function FinalCta() {
   ];
 
   return (
-    <section className="bg-brand-black py-16 text-white sm:py-24">
+    <section className="bg-brand-charcoal py-16 text-white sm:py-24">
       <Container className="text-center">
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-red-400">VLS Law Academy</span>
         <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
@@ -69,8 +69,7 @@ export function FinalCta() {
             target="_blank"
             rel="noopener noreferrer"
             size="lg"
-            variant="outline"
-            className="border-white text-white hover:bg-white hover:text-brand-black"
+            variant="outlineLight"
             event="whatsapp_click"
             eventPayload={{ source: "final_cta" }}
           >

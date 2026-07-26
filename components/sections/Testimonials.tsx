@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { ChevronLeft, ChevronRight, Quote, MessageSquareText } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote, MessageSquareText, PlayCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BrandImage } from "@/components/ui/BrandImage";
 import { masterclass } from "@/data/masterclass";
 import { cn } from "@/lib/utils";
 
@@ -17,13 +17,10 @@ export function Testimonials() {
       <section className="py-16 sm:py-24">
         <Container>
           <SectionHeading eyebrow="Learner Feedback" title="What Our Learners Say" />
-          <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-dashed border-brand-gray-300 bg-brand-gray-50 p-10 text-center">
+          <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-brand-gray-50 p-10 text-center">
             <MessageSquareText className="mx-auto h-8 w-8 text-brand-gray-400" aria-hidden="true" />
-            <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-brand-gray-500">
-              Content Placeholder
-            </p>
-            <p className="mt-2 text-sm text-brand-gray-600">
-              Verified testimonials from VLS Law Academy learners will be added here once approved. No testimonial
+            <p className="mt-4 text-sm text-brand-gray-600">
+              Verified testimonials from VLS Law Academy learners will appear here once approved. No testimonial
               content is generated or implied until real feedback is supplied.
             </p>
           </div>
@@ -33,6 +30,7 @@ export function Testimonials() {
   }
 
   const active = testimonials[activeIndex];
+  const isVisualOnly = !active.quote;
 
   function goTo(index: number) {
     setActiveIndex((index + testimonials.length) % testimonials.length);
@@ -45,19 +43,44 @@ export function Testimonials() {
 
         <div className="mx-auto mt-10 max-w-2xl">
           <div className="rounded-2xl border border-brand-gray-200 bg-white p-8 text-center shadow-card sm:p-10" aria-live="polite">
-            <Quote className="mx-auto h-8 w-8 text-brand-red-200" aria-hidden="true" />
-            <p className="mt-4 text-base leading-relaxed text-brand-black sm:text-lg">&ldquo;{active.quote}&rdquo;</p>
-
-            <div className="mt-6 flex items-center justify-center gap-3">
-              {active.photo && (
-                <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                  <Image src={active.photo} alt={active.name} fill sizes="48px" className="object-cover" />
-                </div>
-              )}
-              <div className="text-left">
-                <p className="text-sm font-bold text-brand-black">{active.name}</p>
-                <p className="text-xs text-brand-gray-500">{active.role}</p>
+            {active.photo && (
+              <div className="relative mx-auto mb-5 h-20 w-20">
+                <BrandImage
+                  src={active.photo}
+                  alt={active.name}
+                  aspect="square"
+                  rounded="full"
+                  sizes="80px"
+                  className="shadow-card"
+                />
+                {active.videoUrl && (
+                  <a
+                    href={active.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Watch ${active.name}'s video testimonial`}
+                    className="absolute inset-0 flex items-center justify-center rounded-full bg-black/30 opacity-0 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+                  >
+                    <PlayCircle className="h-8 w-8 text-white" aria-hidden="true" />
+                  </a>
+                )}
               </div>
+            )}
+
+            {isVisualOnly ? (
+              <p className="text-sm font-semibold uppercase tracking-wide text-brand-red-600">
+                {active.videoUrl ? "Video Testimonial" : "Learner Testimonial"}
+              </p>
+            ) : (
+              <>
+                <Quote className="mx-auto h-8 w-8 text-brand-red-200" aria-hidden="true" />
+                <p className="mt-4 text-base leading-relaxed text-brand-black sm:text-lg">&ldquo;{active.quote}&rdquo;</p>
+              </>
+            )}
+
+            <div className="mt-4">
+              <p className="text-sm font-bold text-brand-black">{active.name}</p>
+              <p className="text-xs text-brand-gray-500">{active.role}</p>
             </div>
           </div>
 

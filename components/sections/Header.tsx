@@ -67,10 +67,10 @@ export function Header() {
       <Container className="flex h-16 items-center justify-between sm:h-20">
         <a href="#overview" onClick={handleNavClick} className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 rounded">
           <span className="block sm:hidden">
-            <Logo compact />
+            <Logo compact priority />
           </span>
           <span className="hidden sm:block">
-            <Logo />
+            <Logo priority />
           </span>
         </a>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Archivo } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,10 +8,15 @@ const inter = Inter({
   display: "swap",
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+// TODO(brand): Chosen for a bolder, more authoritative legal-academy
+// headline character than the previous Inter/Poppins pairing. The reference
+// site's actual computed font-family could not be inspected (network access
+// to vlslawacademy.com is blocked in this environment) — swap this for the
+// verified reference typeface once it can be confirmed.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -30,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} ${archivo.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-white text-brand-black">{children}</body>
     </html>
   );
