@@ -1,8 +1,44 @@
+import { CalendarDays, Clock, Timer, MonitorSmartphone, Languages, IndianRupee, type LucideIcon } from "lucide-react";
 import { masterclass } from "@/data/masterclass";
 import type { AgendaItem, FaqItem, FastFact } from "@/types/masterclass";
 import { isConfirmed } from "@/lib/utils";
 
 const UNCONFIRMED_LABEL = "To be confirmed";
+
+export interface MasterclassDetail {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+}
+
+/** The Date/Time/Duration/Format/Language(/Fee) detail list shown in both
+ * the hero and the final CTA — one source so the two never drift apart. */
+export function getMasterclassDetails({ includeFee = false } = {}): MasterclassDetail[] {
+  const details: MasterclassDetail[] = [
+    { icon: CalendarDays, label: "Date", value: masterclass.displayDate },
+    {
+      icon: Clock,
+      label: "Time",
+      value:
+        isConfirmed(masterclass.startTime) && isConfirmed(masterclass.endTime)
+          ? `${masterclass.startTime} – ${masterclass.endTime} ${masterclass.timeZone}`
+          : UNCONFIRMED_LABEL,
+    },
+    { icon: Timer, label: "Duration", value: masterclass.duration },
+    { icon: MonitorSmartphone, label: "Format", value: isConfirmed(masterclass.format) ? masterclass.format : UNCONFIRMED_LABEL },
+    { icon: Languages, label: "Language", value: masterclass.language },
+  ];
+
+  if (includeFee) {
+    details.push({
+      icon: IndianRupee,
+      label: "Fee",
+      value: masterclass.fee !== null ? `₹${masterclass.fee.toLocaleString("en-IN")}` : UNCONFIRMED_LABEL,
+    });
+  }
+
+  return details;
+}
 
 function policyLabel(value: boolean | null, whenTrue: string, whenFalse: string): string {
   if (value === null) return UNCONFIRMED_LABEL;

@@ -30,7 +30,7 @@ export function Audience() {
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {masterclass.audience.map((category, index) => (
               <FadeIn key={category.id} delay={index * 40}>
-                <div className="flex h-full flex-col items-center gap-3 rounded-xl border border-brand-gray-200 bg-white p-5 text-center transition-shadow hover:shadow-card">
+                <div className="flex h-full flex-col items-center gap-3 rounded-xl border border-brand-gray-200 bg-white p-5 text-center transition-[box-shadow,transform] duration-200 ease-out pointer-fine:hover:-translate-y-1 pointer-fine:hover:shadow-card">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-red-50">
                     <Icon name={category.icon} className="h-5 w-5 text-brand-red-600" />
                   </span>
