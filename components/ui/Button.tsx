@@ -6,7 +6,7 @@ type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "md" | "lg";
 
 const baseStyles =
-  "inline-flex items-center justify-center gap-2 rounded-lg font-semibold tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 min-h-11";
+  "inline-flex items-center justify-center gap-2 rounded-lg font-semibold uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 min-h-11";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
