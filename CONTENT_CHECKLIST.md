@@ -40,19 +40,20 @@ entered into `data/masterclass.ts` before publishing.
 
 ## Assets
 
-**Still blocked — no image files have actually been downloaded.** This session's network access to both `vlslawacademy.com` and `decodingofpractice.vlslawacademy.com` is rejected at the egress-policy layer (HTTP 403 on the CONNECT itself), so no binary files could be fetched despite having exact source URLs. Every component (`Logo`, `Hero`, `FastFacts`, `WhyAttend`, `Curriculum`, `Audience`, `WhyVls`, `Testimonials`) is wired via `next/image` to the exact target paths in `lib/assets.ts` and will display each photo automatically the moment it's added — no further code changes needed. See `ASSET_SOURCES.md` for the full per-file list, source URLs, and instructions.
+**6 of 14 imported.** This session's own network access to `vlslawacademy.com`/`decodingofpractice.vlslawacademy.com` is still blocked at the egress-policy layer, but the user supplied six real captures directly, which are now live on the site. See `ASSET_SOURCES.md` for the full per-file status, source URLs, and instructions for the rest.
 
-- [ ] `public/images/vls/vls-logo.png`
-- [ ] `public/images/vls/vls-legal-hero.jpg`
-- [ ] `public/images/vls/vls-classroom-faculty-01.jpg`
-- [ ] `public/images/vls/vls-training-wide-01.jpg`
-- [ ] `public/images/vls/vls-classroom-learning-01.jpg`
-- [ ] `public/images/vls/vls-academy-interior-01.jpg`
-- [ ] `public/images/vls/vls-training-01.jpg`, `vls-training-02.jpg`, `vls-students-01.jpg` (WhyVls collage)
-- [ ] `public/images/vls/vls-training-03.jpg`, `vls-academy-01.jpg` (downloaded per spec, not yet assigned to a section)
-- [ ] `public/images/vls/vls-testimonial-01.jpg`, `vls-testimonial-02.png`, `vls-testimonial-03.png` — plus a verified name/role for each (see "Testimonials" below)
+- [x] `public/images/vls/vls-logo.png` — imported, used in header + footer
+- [x] `public/images/vls/vls-classroom-faculty-01.jpg` — imported, used in Fast Facts
+- [x] `public/images/vls/vls-training-wide-01.jpg` — imported, used in Why Attend
+- [x] `public/images/vls/vls-classroom-learning-01.jpg` — imported, used in Curriculum
+- [x] `public/images/vls/vls-academy-interior-01.jpg` — imported, used in Who Can Attend
+- [x] `public/images/vls/vls-training-03.jpg` — imported, used in Why VLS collage (repurposed as the wide top image)
+- [ ] `public/images/vls/vls-legal-hero.jpg` — still needed for the Hero background
+- [ ] `public/images/vls/vls-training-01.jpg`, `vls-training-02.jpg`, `vls-students-01.jpg` — still needed to fill out the Why VLS collage
+- [ ] `public/images/vls/vls-academy-01.jpg` — downloaded per spec, not yet assigned to a section
+- [ ] `public/images/vls/vls-testimonial-01.jpg`, `vls-testimonial-02.png`, `vls-testimonial-03.png` — plus a verified name/role for each (see "Testimonials" above)
 - [ ] Real 1200×630 social-share JPG/PNG (unrelated to the VLS asset list above)
-- [ ] Official VLS favicon
+- [ ] Official VLS favicon — the real logo is now available at `public/images/vls/vls-logo.png` and could be used to generate one
 
 ## Integrations
 

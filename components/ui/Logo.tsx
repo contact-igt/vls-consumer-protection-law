@@ -44,8 +44,12 @@ export function Logo({ className, compact = false, onDark = false, priority = fa
   return (
     <span
       className={cn(
-        "relative inline-block h-9 sm:h-11",
-        compact ? "w-24 sm:w-28" : "w-36 sm:w-44",
+        "relative inline-block",
+        // The artwork itself is unaltered (never recolored) — on a dark
+        // surface it gets a white backing plate instead, since its black
+        // icon/wordmark elements have no contrast against a dark background.
+        onDark && "rounded-lg bg-white p-1.5",
+        compact ? "h-11 w-11" : "h-12 w-12 sm:h-14 sm:w-14",
         className
       )}
     >
@@ -54,8 +58,8 @@ export function Logo({ className, compact = false, onDark = false, priority = fa
         alt="VLS Law Academy"
         fill
         priority={priority}
-        sizes="200px"
-        className="object-contain object-left"
+        sizes="112px"
+        className="object-contain"
         onError={() => setErrored(true)}
       />
     </span>
