@@ -2,18 +2,22 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import type { ButtonHTMLAttributes } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+type ButtonVariant = "primary" | "secondary" | "outline" | "outlineLight" | "ghost";
 type ButtonSize = "md" | "lg";
 
 const baseStyles =
-  "inline-flex items-center justify-center gap-2 rounded-lg font-semibold tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 min-h-11";
+  "inline-flex items-center justify-center gap-2 rounded-lg font-semibold uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 min-h-11";
 
+// Each variant owns its border/text/background colors outright rather than
+// relying on a caller's className to override them — same-specificity
+// Tailwind utilities are ordered by the compiled stylesheet, not by string
+// concatenation order, so "later className wins" is not a safe assumption.
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-brand-red-600 text-white shadow-card hover:bg-brand-red-700 active:bg-brand-red-800",
+  primary: "bg-brand-red-600 text-white shadow-card hover:bg-brand-red-700 active:bg-brand-red-800",
   secondary: "bg-brand-black text-white hover:bg-brand-ink active:bg-black",
   outline:
-    "border-2 border-brand-black text-brand-black bg-transparent hover:bg-brand-black hover:text-white",
+    "border-2 border-brand-red-600 text-brand-red-600 bg-transparent hover:bg-brand-red-600 hover:text-white",
+  outlineLight: "border-2 border-white text-white bg-transparent hover:bg-white hover:text-brand-black",
   ghost: "text-brand-black hover:bg-brand-gray-100",
 };
 

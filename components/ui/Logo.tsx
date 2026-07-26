@@ -1,23 +1,63 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
   compact?: boolean;
+  onDark?: boolean;
+  priority?: boolean;
 }
 
+const LOGO_SRC = "/images/vls/vls-logo.png";
+
 /**
- * TODO(assets): Replace with the official VLS Law Academy logo file once
- * downloaded to public/images/vls/vls-logo.png (see ASSET_SOURCES.md and
- * CONTENT_CHECKLIST.md). This text lockup is a placeholder that mirrors the
- * academy's red/black wordmark styling so the header renders correctly today.
+ * Renders the official VLS Law Academy logo via next/image. Falls back to a
+ * styled text lockup only if the file isn't present at public/images/vls/vls-logo.png
+ * — the real logo displays automatically the instant it's added, no code change needed.
  */
-export function Logo({ className, compact = false }: LogoProps) {
+export function Logo({ className, compact = false, onDark = false, priority = false }: LogoProps) {
+  const [errored, setErrored] = useState(false);
+
+  if (errored) {
+    return (
+      <span className={cn("inline-flex items-baseline gap-1.5 leading-none", className)}>
+        <span
+          className={cn(
+            "font-heading text-2xl font-extrabold tracking-tight",
+            onDark ? "text-brand-red-400" : "text-brand-red-600"
+          )}
+        >
+          VLS
+        </span>
+        {!compact && (
+          <span className={cn("font-heading text-lg font-bold tracking-tight", onDark ? "text-white" : "text-brand-black")}>
+            Law Academy
+          </span>
+        )}
+      </span>
+    );
+  }
+
   return (
-    <span className={cn("inline-flex items-baseline gap-1.5 leading-none", className)}>
-      <span className="font-heading text-2xl font-extrabold tracking-tight text-brand-red-600">VLS</span>
-      {!compact && (
-        <span className="font-heading text-lg font-bold tracking-tight text-brand-black">Law Academy</span>
+    <span
+      className={cn(
+        "relative inline-block h-9 sm:h-11",
+        compact ? "w-24 sm:w-28" : "w-36 sm:w-44",
+        className
       )}
+    >
+      <Image
+        src={LOGO_SRC}
+        alt="VLS Law Academy"
+        fill
+        priority={priority}
+        sizes="200px"
+        className="object-contain object-left"
+        onError={() => setErrored(true)}
+      />
     </span>
   );
 }

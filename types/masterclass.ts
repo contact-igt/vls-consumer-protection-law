@@ -22,7 +22,10 @@ export interface Testimonial {
   name: string;
   role: string;
   photo?: string;
-  quote: string;
+  /** Omit when only an approved photo/video is available and no verified
+   * written quote exists — the card then renders as a visual/video
+   * testimonial instead of inventing quotation text. */
+  quote?: string;
   videoUrl?: string;
 }
 

@@ -2,33 +2,63 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
-  --font-heading: var(--font-poppins);
+  --font-heading: var(--font-archivo);
 
-  --color-brand-red-50: #fdf2f2;
-  --color-brand-red-100: #fbdcdc;
-  --color-brand-red-200: #f5b3b3;
-  --color-brand-red-300: #ec8686;
-  --color-brand-red-400: #de4f4f;
-  --color-brand-red-500: #c81e1e;
-  --color-brand-red-600: #a91313;
-  --color-brand-red-700: #8a1010;
-  --color-brand-red-800: #6b0d0d;
-  --color-brand-red-900: #4d0909;
+  /* ===========================================================
+     VLS Law Academy brand tokens.
+     Anchored on the official logo red (#B20A0A) and the neutral
+     palette confirmed from the official site; red-200/300/400/500
+     and gray-300/500 are interpolated between the given anchors to
+     produce a full usable scale, not arbitrary invented values.
+     =========================================================== */
+  --color-vls-red: #b20a0a;
+  --color-vls-red-hover: #930808;
+  --color-vls-red-dark: #780606;
+  --color-vls-red-soft: #fceded;
+  --color-vls-red-muted: #f7dada;
 
-  --color-brand-black: #14100f;
-  --color-brand-ink: #1c1917;
+  --color-vls-black: #080808;
+  --color-vls-ink: #171717;
+  --color-vls-charcoal: #242424;
 
-  --color-brand-gray-50: #fafaf9;
-  --color-brand-gray-100: #f4f3f2;
-  --color-brand-gray-200: #e7e5e3;
-  --color-brand-gray-300: #d4d1cd;
-  --color-brand-gray-400: #a8a29a;
-  --color-brand-gray-500: #78716a;
-  --color-brand-gray-600: #57534d;
-  --color-brand-gray-700: #44403a;
+  --color-vls-white: #ffffff;
+  --color-vls-off-white: #fafafa;
+  --color-vls-gray-50: #f8f8f8;
+  --color-vls-gray-100: #f1f1f1;
+  --color-vls-gray-200: #e2e2e2;
+  --color-vls-gray-400: #9b9b9b;
+  --color-vls-gray-600: #606060;
+  --color-vls-gray-700: #404040;
 
-  --shadow-card: 0 1px 2px rgba(20, 16, 15, 0.04), 0 8px 24px rgba(20, 16, 15, 0.08);
-  --shadow-card-hover: 0 4px 8px rgba(20, 16, 15, 0.06), 0 16px 36px rgba(20, 16, 15, 0.12);
+  /* Existing brand-* utility scale repointed to the VLS palette above,
+     so every component using bg-brand-red-600 etc. now renders the
+     real brand colors without a site-wide class-name rename. */
+  --color-brand-red-50: var(--color-vls-red-soft);
+  --color-brand-red-100: var(--color-vls-red-muted);
+  --color-brand-red-200: #e9b0b0;
+  --color-brand-red-300: #db8787;
+  --color-brand-red-400: #ce5d5d;
+  --color-brand-red-500: #c03434;
+  --color-brand-red-600: var(--color-vls-red);
+  --color-brand-red-700: var(--color-vls-red-hover);
+  --color-brand-red-800: var(--color-vls-red-dark);
+  --color-brand-red-900: #5d0404;
+
+  --color-brand-black: var(--color-vls-black);
+  --color-brand-ink: var(--color-vls-ink);
+  --color-brand-charcoal: var(--color-vls-charcoal);
+
+  --color-brand-gray-50: var(--color-vls-gray-50);
+  --color-brand-gray-100: var(--color-vls-gray-100);
+  --color-brand-gray-200: var(--color-vls-gray-200);
+  --color-brand-gray-300: #bebebe;
+  --color-brand-gray-400: var(--color-vls-gray-400);
+  --color-brand-gray-500: #7d7d7d;
+  --color-brand-gray-600: var(--color-vls-gray-600);
+  --color-brand-gray-700: var(--color-vls-gray-700);
+
+  --shadow-card: 0 1px 2px rgba(8, 8, 8, 0.05), 0 8px 24px rgba(8, 8, 8, 0.08);
+  --shadow-card-hover: 0 4px 8px rgba(8, 8, 8, 0.07), 0 16px 36px rgba(8, 8, 8, 0.13);
 
   --animate-fade-up: fade-up 0.6s ease-out both;
 
@@ -46,7 +76,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #14100f;
+  --foreground: #080808;
 }
 
 html {
@@ -61,6 +91,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), var(--font-sans), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 @media (prefers-reduced-motion: reduce) {

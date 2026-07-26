@@ -50,11 +50,9 @@ export const masterclass: MasterclassConfig = {
 
   whatsappNumber: "919500207811",
   contactNumber: "+91 95002 07811",
-  // TODO(content): Confirm a second contact number from the official VLS website before adding it.
-  contactNumberSecondary: null,
+  contactNumberSecondary: "+91 95000 25216",
   contactEmail: "info@vlslawacademy.com",
-  // TODO(content): Confirm the registered/office address from the official VLS website before publishing.
-  contactAddress: "TO_BE_CONFIRMED",
+  contactAddress: "No. 1910, 2nd Floor, H Block, 5th Street, 12th Main Road, Anna Nagar West, Chennai, Tamil Nadu 600040",
   // TODO(content): Confirm official social-media URLs from https://www.vlslawacademy.com/ before publishing.
   socialLinks: [],
   officialWebsiteUrl: "https://www.vlslawacademy.com/",

@@ -7,7 +7,7 @@ interface TrackedButtonProps {
   href: string;
   event: AnalyticsEvent;
   eventPayload?: AnalyticsPayload;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "outlineLight" | "ghost";
   size?: "md" | "lg";
   className?: string;
   target?: string;

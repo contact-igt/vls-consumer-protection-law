@@ -3,8 +3,10 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Accordion, type AccordionEntry } from "@/components/ui/Accordion";
+import { BrandImage } from "@/components/ui/BrandImage";
 import { masterclass } from "@/data/masterclass";
 import { trackEvent } from "@/lib/analytics";
+import { VLS_ASSETS } from "@/lib/assets";
 
 export function Curriculum() {
   const items: AccordionEntry[] = masterclass.curriculum.map((topic) => ({
@@ -34,20 +36,29 @@ export function Curriculum() {
       <Container>
         <SectionHeading eyebrow="Curriculum" title={`What You'll Learn in ${masterclass.duration}`} />
 
-        <div className="mx-auto mt-12 max-w-4xl">
-          <Accordion
-            items={items}
-            defaultOpenId={items[0]?.id}
-            onToggle={(id, isOpen) => {
-              if (isOpen) trackEvent("curriculum_open", { topic: id });
-            }}
+        <div className="mt-12 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-10">
+          <BrandImage
+            src={VLS_ASSETS.classroomLearning}
+            alt="Consumer Protection Law classroom teaching session at VLS Law Academy"
+            aspect="portrait"
+            sizes="(min-width: 1024px) 35vw, 100vw"
+            className="shadow-card-hover lg:sticky lg:top-24"
           />
-        </div>
 
-        <p className="mx-auto mt-6 max-w-3xl text-center text-sm italic text-brand-gray-500">
-          The exact topics may be adjusted by the faculty based on recent legal developments and the learning needs
-          of participants.
-        </p>
+          <div>
+            <Accordion
+              items={items}
+              defaultOpenId={items[0]?.id}
+              onToggle={(id, isOpen) => {
+                if (isOpen) trackEvent("curriculum_open", { topic: id });
+              }}
+            />
+            <p className="mt-6 text-sm italic text-brand-gray-500">
+              The exact topics may be adjusted by the faculty based on recent legal developments and the learning
+              needs of participants.
+            </p>
+          </div>
+        </div>
       </Container>
     </section>
   );

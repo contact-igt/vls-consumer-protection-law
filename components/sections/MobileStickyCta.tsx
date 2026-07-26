@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { masterclass } from "@/data/masterclass";
 import { trackEvent } from "@/lib/analytics";
 import { useHiddenNear } from "@/lib/useHiddenNear";
-import { cn } from "@/lib/utils";
+import { cn, toDurationAdjective } from "@/lib/utils";
 
 const WATCH_IDS = ["register", "site-footer"];
 
@@ -27,7 +27,9 @@ export function MobileStickyCta() {
     >
       <div className="flex items-center justify-between gap-3">
         <div className="leading-tight">
-          <p className="text-xs font-bold uppercase tracking-wide text-brand-red-600">{masterclass.duration} Masterclass</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-brand-red-600">
+            {toDurationAdjective(masterclass.duration)} Masterclass
+          </p>
           <p className="text-sm font-semibold text-brand-black">Consumer Protection Law</p>
         </div>
         <Button

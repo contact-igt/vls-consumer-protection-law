@@ -24,7 +24,7 @@ export function Footer() {
     <footer id="site-footer" className="bg-brand-ink text-brand-gray-300">
       <Container className="grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.3fr_1fr_1fr]">
         <div>
-          <Logo className="[&_span:first-child]:text-brand-red-400 [&_span:last-child]:text-white" />
+          <Logo onDark />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-brand-gray-400">
             VLS Law Academy delivers practice-oriented legal education for law students, advocates and legal
             professionals through focused, practical masterclasses and courses.
