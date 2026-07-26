@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { TrackedButton } from "@/components/ui/TrackedButton";
 import { masterclass } from "@/data/masterclass";
+import { toDurationAdjective } from "@/lib/utils";
 
 export function GapVsSolution() {
   return (
@@ -32,7 +33,9 @@ export function GapVsSolution() {
 
           <FadeIn delay={100}>
             <div className="h-full rounded-2xl border-2 border-brand-red-600 bg-white p-7 sm:p-8">
-              <h3 className="text-xl font-bold text-brand-black">What This {masterclass.duration} Masterclass Covers</h3>
+              <h3 className="text-xl font-bold text-brand-black">
+                What This {toDurationAdjective(masterclass.duration)} Masterclass Covers
+              </h3>
               <ul className="mt-5 space-y-3.5">
                 {masterclass.gapVsSolution.solution.map((point) => (
                   <li key={point} className="flex items-start gap-3 text-sm text-brand-gray-700 sm:text-base">

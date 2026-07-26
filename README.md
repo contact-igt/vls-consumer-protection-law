@@ -81,7 +81,7 @@ faculty: {
   name: "Adv. Jane Doe",
   photo: "/images/vls/vls-faculty-jane-doe.jpg", // add the file to public/images/vls/
   qualifications: ["LLB", "LLM"],
-  designation: "Practising Advocate, Consumer Forums",
+  designation: "Practising Advocate, Consumer Commissions",
   areasOfPractice: ["Consumer Protection Law", "Civil Litigation"],
   experienceSummary: "10+ years of consumer litigation practice.",
   biography: "…",

@@ -96,11 +96,15 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <span className="hidden sm:inline-block">
-            <Button href="#register" size="md" onClick={() => trackEvent("header_register_click")}>
-              Register Now
-            </Button>
-          </span>
+          <Button
+            href="#register"
+            size="md"
+            className="px-3 text-xs sm:px-5 sm:text-sm md:text-base"
+            onClick={() => trackEvent("header_register_click")}
+          >
+            <span className="sm:hidden">Register</span>
+            <span className="hidden sm:inline">Register Now</span>
+          </Button>
           <button
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-md text-brand-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500 lg:hidden"

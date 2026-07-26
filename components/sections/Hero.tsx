@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { TrackedButton } from "@/components/ui/TrackedButton";
 import { RegistrationForm } from "@/components/sections/RegistrationForm";
 import { masterclass } from "@/data/masterclass";
-import { isConfirmed } from "@/lib/utils";
+import { isConfirmed, toDurationAdjective } from "@/lib/utils";
 
 const HERO_POINTS = [
   "Consumer Protection Law essentials",
@@ -44,7 +44,7 @@ export function Hero() {
           </h1>
 
           <div className="mt-5">
-            <Badge variant="red">{masterclass.duration} Intensive Masterclass</Badge>
+            <Badge variant="red">{toDurationAdjective(masterclass.duration)} Intensive Masterclass</Badge>
           </div>
 
           <p className="mt-5 text-xl font-semibold text-brand-black sm:text-2xl">{masterclass.subtitle}</p>

@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { resolveAgenda } from "@/lib/content";
 import { masterclass } from "@/data/masterclass";
+import { toDurationAdjective } from "@/lib/utils";
 
 export function SessionFlow() {
   const agenda = resolveAgenda();
@@ -10,7 +11,10 @@ export function SessionFlow() {
   return (
     <section id="session-flow" className="scroll-mt-20 py-16 sm:py-24">
       <Container>
-        <SectionHeading eyebrow="Session Flow" title={`Your ${masterclass.duration} Masterclass Flow`} />
+        <SectionHeading
+          eyebrow="Session Flow"
+          title={`Your ${toDurationAdjective(masterclass.duration)} Masterclass Flow`}
+        />
 
         <div className="mx-auto mt-12 max-w-3xl">
           {agenda.map((item, index) => (
