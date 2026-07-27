@@ -16,6 +16,7 @@ import { trackEvent } from "@/lib/analytics";
 import { getWhatsappUrl } from "@/lib/whatsapp";
 import { captureUtmParams } from "@/lib/utm";
 import { submitToGoogleSheet } from "@/lib/googleSheet";
+import { submitLeadToAdminPanel } from "@/lib/adminApi";
 import { isRazorpayReady, type RazorpayOrder, type RazorpaySuccessResponse } from "@/lib/razorpay";
 import type { PaymentPayload } from "@/types/masterclass";
 
@@ -165,8 +166,8 @@ export function RegistrationForm() {
     }
 
     const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? "",
-      // key: "rzp_test_Ss2NFtpJFLRAiw",
+      // key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? "",
+      key: "rzp_test_Ss2NFtpJFLRAiw",
       amount: order.amount,
       currency: order.currency,
       name: "VLS Law Academy",
@@ -208,7 +209,10 @@ export function RegistrationForm() {
           utm_content: getUTM("utm_content"),
         };
 
-        // Send to Google Sheet (failure does not block the success redirect).
+        // 1. Submit lead registration to Invictus Admin SaaS API
+        await submitLeadToAdminPanel(apiPayload);
+
+        // 2. Send to Google Sheet (backup, failure does not block the success redirect).
         const params = new URLSearchParams();
         Object.entries(apiPayload).forEach(([key, val]) =>
           params.append(key, String(val ?? ""))
