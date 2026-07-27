@@ -16,7 +16,7 @@ import { trackEvent } from "@/lib/analytics";
 import { getWhatsappUrl } from "@/lib/whatsapp";
 import { captureUtmParams } from "@/lib/utm";
 import { submitToGoogleSheet } from "@/lib/googleSheet";
-import { submitLeadToAdminPanel } from "@/lib/adminApi";
+// import { submitLeadToAdminPanel } from "@/lib/adminApi";
 import { isRazorpayReady, type RazorpayOrder, type RazorpaySuccessResponse } from "@/lib/razorpay";
 import type { PaymentPayload } from "@/types/masterclass";
 
@@ -140,8 +140,8 @@ export function RegistrationForm() {
       return;
     }
 
-    // const amount = masterclass.fee ?? 499;
-    const amount = 1;
+    const amount = masterclass.fee ?? 499;
+    // const amount = 1;
 
     // Create the Razorpay order server-side.
     let order: RazorpayOrder & { ip_address: string };
@@ -210,7 +210,7 @@ export function RegistrationForm() {
         };
 
         // 1. Submit lead registration to Invictus Admin SaaS API
-        await submitLeadToAdminPanel(apiPayload);
+        // await submitLeadToAdminPanel(apiPayload);
 
         // 2. Send to Google Sheet (backup, failure does not block the success redirect).
         const params = new URLSearchParams();
