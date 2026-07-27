@@ -140,8 +140,8 @@ export function RegistrationForm() {
       return;
     }
 
-    // const amount = masterclass.fee ?? 499;
-    const amount = 1;
+    const amount = masterclass.fee ?? 499;
+    // const amount = 1;
 
     // Create the Razorpay order server-side.
     let order: RazorpayOrder & { ip_address: string };
