@@ -1,27 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Quote, MessageSquareText, PlayCircle } from "lucide-react";
+import { Play, X, ChevronLeft, ChevronRight, MessageSquareText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { BrandImage } from "@/components/ui/BrandImage";
+import { TrackedButton } from "@/components/ui/TrackedButton";
 import { masterclass } from "@/data/masterclass";
-import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 export function Testimonials() {
   const { testimonials } = masterclass;
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (testimonials.length === 0) {
     return (
-      <section className="py-16 sm:py-24">
+      <section id="testimonials" className="bg-brand-gray-50 py-16 sm:py-24">
         <Container>
-          <SectionHeading eyebrow="Learner Feedback" title="What Our Learners Say" />
-          <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-brand-gray-50 p-10 text-center">
+          <SectionHeading eyebrow="Student Feedback" title="Our Student Testimonials" />
+          <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-white p-10 text-center shadow-sm">
             <MessageSquareText className="mx-auto h-8 w-8 text-brand-gray-400" aria-hidden="true" />
             <p className="mt-4 text-sm text-brand-gray-600">
-              Verified testimonials from VLS Law Academy learners will appear here once approved. No testimonial
-              content is generated or implied until real feedback is supplied.
+              Verified testimonials from VLS Law Academy learners will appear here once approved.
             </p>
           </div>
         </Container>
@@ -29,110 +29,135 @@ export function Testimonials() {
     );
   }
 
-  const active = testimonials[activeIndex];
-  const isVisualOnly = !active.quote;
+  const openModal = (videoUrl: string) => {
+    setSelectedVideo(videoUrl);
+    trackEvent("page_view", { section: "testimonial_video_play" });
+  };
 
-  function goTo(index: number) {
-    setActiveIndex((index + testimonials.length) % testimonials.length);
-  }
+  const closeModal = () => {
+    setSelectedVideo(null);
+  };
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
-    <section className="py-16 sm:py-24" aria-roledescription="carousel" aria-label="Learner testimonials">
+    <section id="testimonials" className="bg-brand-gray-50 py-16 sm:py-24">
       <Container>
-        <SectionHeading eyebrow="Learner Feedback" title="What Our Learners Say" />
+        <SectionHeading
+          eyebrow="Student Feedback"
+          title="Our Student Testimonials"
+          description="Hear directly from law students and advocates who have experienced VLS Law Academy masterclasses."
+        />
 
-        <div className="mx-auto mt-10 max-w-2xl">
-          <div className="rounded-2xl border border-brand-gray-200 bg-white p-8 text-center shadow-card sm:p-10" aria-live="polite">
-            {/* key={active.id} remounts this on every carousel change, which
-                re-triggers the fade-up keyframe as a lightweight crossfade —
-                no extra library, no manual enter/exit state to manage. */}
-            <div key={active.id} className="animate-fade-up">
-              {active.photo && (
-                <div className="relative mx-auto mb-5 h-20 w-20">
-                  <BrandImage
-                    src={active.photo}
-                    alt={active.name}
-                    aspect="square"
-                    rounded="full"
-                    sizes="80px"
-                    className="shadow-card"
-                  />
-                  {active.videoUrl && (
-                    <a
-                      href={active.videoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Watch ${active.name}'s video testimonial`}
-                      className="absolute inset-0 flex items-center justify-center rounded-full bg-black/30 opacity-0 transition-opacity hover:opacity-100 focus-visible:opacity-100"
-                    >
-                      <PlayCircle className="h-8 w-8 text-white" aria-hidden="true" />
-                    </a>
-                  )}
-                </div>
+        {/* Video Testimonials Cards Grid */}
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((item) => (
+            <div
+              key={item.id}
+              className="group relative flex flex-col justify-end overflow-hidden rounded-2xl bg-brand-black shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover min-h-[460px] sm:min-h-[500px]"
+            >
+              {/* Thumbnail Image */}
+              {item.photo && (
+                <img
+                  src={item.photo}
+                  alt={item.name}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
               )}
 
-              {isVisualOnly ? (
-                <p className="text-sm font-semibold uppercase tracking-wide text-brand-red-600">
-                  {active.videoUrl ? "Video Testimonial" : "Learner Testimonial"}
-                </p>
-              ) : (
-                <>
-                  <Quote className="mx-auto h-8 w-8 text-brand-red-200" aria-hidden="true" />
-                  <p className="mt-4 text-base leading-relaxed text-brand-black sm:text-lg">&ldquo;{active.quote}&rdquo;</p>
-                </>
+              {/* Gradient Overlay */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/20 transition-opacity group-hover:from-black/90"
+                aria-hidden="true"
+              />
+
+              {/* Play Button Overlay */}
+              {item.videoUrl && (
+                <button
+                  type="button"
+                  onClick={() => openModal(item.videoUrl!)}
+                  aria-label={`Watch ${item.name}'s testimonial video`}
+                  className="absolute inset-0 z-10 flex items-center justify-center"
+                >
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-brand-red-600 shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-red-600 group-hover:text-white sm:h-20 sm:w-20">
+                    <Play className="h-7 w-7 fill-current ml-1 sm:h-9 sm:w-9" aria-hidden="true" />
+                  </span>
+                </button>
               )}
 
-              <div className="mt-4">
-                <p className="text-sm font-bold text-brand-black">{active.name}</p>
-                <p className="text-xs text-brand-gray-500">{active.role}</p>
+              {/* Student Info & Quote */}
+              <div className="relative z-20 p-6 sm:p-8 text-left text-white">
+                {item.quote && (
+                  <p className="line-clamp-3 text-sm leading-relaxed text-brand-gray-200 italic mb-4">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+                )}
+                <h4 className="text-lg font-bold text-white">{item.name}</h4>
+                <p className="text-xs font-medium text-brand-red-400 mt-0.5">{item.role}</p>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          {testimonials.length > 1 && (
-            <div className="mt-6 flex items-center justify-center gap-4">
-              <button
-                type="button"
-                onClick={() => goTo(activeIndex - 1)}
-                aria-label="Previous testimonial"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-gray-300 text-brand-black transition-colors hover:bg-brand-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500"
-              >
-                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-              </button>
-
-              <div className="flex">
-                {testimonials.map((t, index) => (
-                  <button
-                    key={t.id}
-                    type="button"
-                    onClick={() => goTo(index)}
-                    aria-label={`Show testimonial ${index + 1}`}
-                    aria-current={index === activeIndex}
-                    className="flex h-11 w-6 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500"
-                  >
-                    {/* Visual dot stays small; the button's own box is the real 44px tap target. */}
-                    <span
-                      className={cn(
-                        "h-2.5 w-2.5 rounded-full transition-colors",
-                        index === activeIndex ? "bg-brand-red-600" : "bg-brand-gray-300"
-                      )}
-                    />
-                  </button>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => goTo(activeIndex + 1)}
-                aria-label="Next testimonial"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-gray-300 text-brand-black transition-colors hover:bg-brand-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-500"
-              >
-                <ChevronRight className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-          )}
+        {/* Enroll CTA */}
+        <div className="mt-12 flex justify-center">
+          <TrackedButton
+            href="#register"
+            size="lg"
+            event="final_cta_click"
+            eventPayload={{ source: "testimonials_section" }}
+          >
+            Enroll Now ₹{masterclass.fee ?? 499}
+          </TrackedButton>
         </div>
       </Container>
+
+      {/* Video Popup Modal */}
+      {selectedVideo && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Student Video Testimonial"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            onClick={closeModal}
+            aria-hidden="true"
+          />
+
+          {/* Modal Content */}
+          <div className="relative z-10 w-full max-w-4xl overflow-hidden rounded-2xl bg-brand-black shadow-2xl border border-white/10">
+            <button
+              type="button"
+              onClick={closeModal}
+              aria-label="Close video"
+              className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-brand-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              <X className="h-6 w-6" aria-hidden="true" />
+            </button>
+
+            <div className="aspect-video w-full">
+              <video
+                controls
+                autoPlay
+                className="h-full w-full object-contain"
+                src={selectedVideo}
+              >
+                Your browser does not support HTML video.
+              </video>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+

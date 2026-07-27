@@ -18,24 +18,22 @@ export const masterclass: MasterclassConfig = {
   subtitle: "Master Consumer Litigation & Commission Practice",
   description:
     "Understand how to assess consumer disputes, structure effective complaints, identify the appropriate Consumer Commission and navigate essential filing, hearing, appeal and execution procedures through a focused, practical masterclass.",
-  duration: "2 Hours",
+  duration: "3 Hours",
 
-  // TODO(content): Confirm final date, time and update below.
-  date: "TO_BE_CONFIRMED",
-  displayDate: "Date To Be Confirmed",
-  startTime: "TO_BE_CONFIRMED",
-  endTime: "TO_BE_CONFIRMED",
+  date: "2026-08-01",
+  displayDate: "Saturday, 01 Aug 2026",
+  startTime: "10:30 AM",
+  endTime: "01:30 PM",
   timeZone: "IST",
 
-  // TODO(content): Confirm final format (Online / Offline / Hybrid) and platform/venue.
-  format: "TO_BE_CONFIRMED",
-  platform: null,
+  format: "Online (Live)",
+  platform: "Google Meet",
   venue: null,
 
-  language: "English & Hindi",
+  language: "Tamil",
 
   // TODO(content): Confirm masterclass fee before launch.
-  fee: null,
+  fee: 499,
   originalFee: null,
   currency: "INR",
 
@@ -62,19 +60,26 @@ export const masterclass: MasterclassConfig = {
   recordingAvailable: null,
   qnaAvailable: null,
 
-  // TODO(content): Faculty for this masterclass has not been confirmed.
-  // Do not populate with a faculty member from another VLS program.
-  faculty: null,
+  faculty: {
+    name: "Dr. Sivakumar",
+    designation: "PhD in Law · Academic Head, VLS Law Academy",
+    qualifications: ["PhD in Law", "25+ Years Experience"],
+    biography: "Practicing Advocate with 25+ years experience. Former Vice Chancellor of Tamil Nadu Dr. Ambedkar Law University.",
+    areasOfPractice: ["Consumer Litigation", "Civil Litigation", "Commission Practice"],
+    experienceSummary: "Trained 250+ Judicial Service Officers & Mentored 1,200+ Legal Professionals",
+    photo: "/assets/owner/mr-siva-kumar-backdrop.svg",
+    profileUrl: undefined,
+  },
 
   fastFacts: [
-    { id: "duration", label: "Duration", value: "2 Hours", visible: true },
+    { id: "duration", label: "Duration", value: "3 Hours", visible: true },
     { id: "session-type", label: "Session Type", value: "Live Intensive Masterclass", visible: true },
     { id: "learning-style", label: "Learning Style", value: "Practical and Case-Based", visible: true },
     { id: "main-focus", label: "Main Focus", value: "Consumer Litigation and Commission Practice", visible: true },
     { id: "suitable-for", label: "Suitable For", value: "Law Students, Advocates and Legal Professionals", visible: true },
-    { id: "language", label: "Language", value: "English & Hindi", visible: true },
-    { id: "format", label: "Format", value: null, visible: true },
-    { id: "fee", label: "Masterclass Fee", value: null, visible: true },
+    { id: "language", label: "Language", value: "Tamil", visible: true },
+    { id: "format", label: "Format", value: "Online (Live)", visible: true },
+    { id: "fee", label: "Masterclass Fee", value: "₹499", visible: true },
     { id: "certificate", label: "Certificate", value: null, visible: false },
     { id: "recording", label: "Recording", value: null, visible: false },
   ],
@@ -320,9 +325,38 @@ export const masterclass: MasterclassConfig = {
     },
   ],
 
-  // TODO(content): No official VLS testimonials for this masterclass have been supplied yet.
-  // Add only verified, approved testimonials here — do not fabricate names or quotes.
-  testimonials: [],
+  testimonials: [
+    {
+      id: "testimonial-1",
+      name: "Akshara Prithashini",
+      role: "Advocate, Ooty",
+      quote:
+        "Hi, I'm Akshara Prithashini. I've been practicing in Ooty for the past two years. When I first came to Chennai, I was completely unsure about where to start — joining VLS Law Academy gave me the right direction and confidence to build my practice.",
+      photo: "/assets/home/testimonialimg1.jpg",
+      videoUrl:
+        "https://res.cloudinary.com/dd3olj1ax/video/upload/v1761892348/vls-testimonal3_ajrnrk.mp4",
+    },
+    {
+      id: "testimonial-2",
+      name: "Practising Advocate",
+      role: "VLS Law Academy Student",
+      quote:
+        "Being part of VLS Law Academy has been a game changer. The practical, case-based approach helped me understand litigation procedures thoroughly.",
+      photo: "/assets/home/testimonialimg2.png",
+      videoUrl:
+        "https://res.cloudinary.com/dd3olj1ax/video/upload/v1762343697/vls_testimonal4_fmdamk.mp4",
+    },
+    {
+      id: "testimonial-3",
+      name: "R.Jedidiah",
+      role: "Law Student",
+      quote:
+        "Hi Everyone, I'm R.Jedidiah. Being part of VLS Law Academy's course has been an incredible experience. I learned how to apply legal theory to real-world situations, and it's truly boosted my confidence as a law student.",
+      photo: "/assets/home/testimonialimg3.png",
+      videoUrl:
+        "https://res.cloudinary.com/dd3olj1ax/video/upload/v1761891831/vls-testimoanl1_ddcvpb.mp4",
+    },
+  ],
 
   faqs: [
     {

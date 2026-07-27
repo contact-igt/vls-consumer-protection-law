@@ -13,11 +13,18 @@ export type AnalyticsEvent =
   | "form_success"
   | "form_error"
   | "payment_click"
+  | "payment_success"
+  | "payment_failed"
   | "whatsapp_click"
   | "phone_click"
   | "curriculum_open"
   | "faq_open"
-  | "final_cta_click";
+  | "final_cta_click"
+  | "thank_you_page_view"
+  | "back_to_home_click"
+  | "payment_failed_page_view"
+  | "try_again_click"
+  | "support_call_click";
 
 export type AnalyticsPayload = Record<string, string | number | boolean | undefined>;
 

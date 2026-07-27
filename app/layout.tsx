@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Archivo } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,6 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${archivo.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-white text-brand-black">{children}</body>
+      {/* Razorpay checkout script — loaded after the page is interactive. */}
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="lazyOnload"
+      />
     </html>
   );
 }

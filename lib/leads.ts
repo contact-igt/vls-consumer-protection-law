@@ -10,6 +10,15 @@ export interface SubmitLeadResult {
 export function buildLeadPayload(values: RegistrationFormValues): LeadFormPayload {
   const utm = captureUtmParams();
 
+  const getLocalStorage = (key: string) => {
+    if (typeof window === "undefined") return "";
+    try {
+      return localStorage.getItem(key) || "";
+    } catch {
+      return "";
+    }
+  };
+
   return {
     fullName: values.fullName.trim(),
     email: values.email.trim(),
@@ -17,11 +26,11 @@ export function buildLeadPayload(values: RegistrationFormValues): LeadFormPayloa
     city: values.city.trim(),
     profession: values.profession,
     consent: values.consent,
-    utmSource: utm.utmSource,
-    utmMedium: utm.utmMedium,
-    utmCampaign: utm.utmCampaign,
-    utmContent: utm.utmContent,
-    utmTerm: utm.utmTerm,
+    utmSource: getLocalStorage("utm_source") || utm.utmSource,
+    utmMedium: getLocalStorage("utm_medium") || utm.utmMedium,
+    utmCampaign: getLocalStorage("utm_campaign") || utm.utmCampaign,
+    utmContent: getLocalStorage("utm_content") || utm.utmContent,
+    utmTerm: getLocalStorage("utm_term") || utm.utmTerm,
     referrer: utm.referrer,
     landingPageUrl: utm.landingPageUrl,
     submittedAt: new Date().toISOString(),

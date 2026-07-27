@@ -103,6 +103,30 @@ export interface LeadFormPayload {
   submittedAt: string;
 }
 
+export interface PaymentPayload {
+  name: string;
+  email: string;
+  /** Mobile number with +91 prefix, e.g. "+919876543210" */
+  mobile: string;
+  city: string;
+  profession: string;
+  /** Amount paid, in rupees */
+  amount: number;
+  programm_date: string;
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+  payment_status: "paid";
+  captured: string;
+  page_name: string;
+  ip_address: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  utm_term: string;
+  utm_content: string;
+}
+
 export interface SocialLink {
   platform: string;
   url: string;

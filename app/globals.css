@@ -121,3 +121,8 @@ h1, h2, h3, h4, h5, h6 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}

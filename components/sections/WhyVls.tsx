@@ -33,22 +33,22 @@ export function WhyVls() {
 
           <FadeIn className="grid grid-cols-2 gap-4">
             <BrandImage
-              src={VLS_ASSETS.training03}
+              src={VLS_ASSETS.classroomFaculty}
               alt="VLS Law Academy faculty addressing a training session"
               aspect="wide"
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="col-span-2 shadow-card-hover"
             />
             <BrandImage
-              src={VLS_ASSETS.training01}
-              alt="VLS Law Academy training session"
+              src={VLS_ASSETS.classroomLearning}
+              alt="VLS Law Academy interactive classroom learning session"
               aspect="square"
               sizes="(min-width: 1024px) 25vw, 50vw"
               className="shadow-card-hover"
             />
             <BrandImage
-              src={VLS_ASSETS.students01}
-              alt="VLS Law Academy students"
+              src={VLS_ASSETS.training03}
+              alt="VLS Law Academy masterclass session"
               aspect="square"
               sizes="(min-width: 1024px) 25vw, 50vw"
               className="shadow-card-hover"
