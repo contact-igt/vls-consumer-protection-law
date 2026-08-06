@@ -110,13 +110,12 @@ export interface PaymentPayload {
   mobile: string;
   city: string;
   profession: string;
-  /** Amount paid, in rupees */
-  amount: number;
+  amount: number | string;
   programm_date: string;
   razorpay_order_id: string;
   razorpay_payment_id: string;
   razorpay_signature: string;
-  payment_status: "paid";
+  payment_status: "paid" | "waitlist";
   captured: string;
   page_name: string;
   ip_address: string;

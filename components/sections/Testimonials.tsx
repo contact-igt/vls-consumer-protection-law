@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrackedButton } from "@/components/ui/TrackedButton";
 import { masterclass } from "@/data/masterclass";
 import { trackEvent } from "@/lib/analytics";
+import { getSectionCtaText } from "@/lib/masterclassStatus";
 
 export function Testimonials() {
   const { testimonials } = masterclass;
@@ -113,7 +114,7 @@ export function Testimonials() {
             event="final_cta_click"
             eventPayload={{ source: "testimonials_section" }}
           >
-            Enroll Now ₹{masterclass.fee ?? 499}
+            {getSectionCtaText(masterclass, `Enroll Now \u2014 \u20b9${masterclass.fee ?? 499}`)}
           </TrackedButton>
         </div>
       </Container>

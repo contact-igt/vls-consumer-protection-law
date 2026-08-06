@@ -18,6 +18,7 @@ import { captureUtmParams } from "@/lib/utm";
 import { submitToGoogleSheet } from "@/lib/googleSheet";
 import { submitLeadToAdminPanel } from "@/lib/adminApi";
 import { isRazorpayReady, type RazorpayOrder, type RazorpaySuccessResponse } from "@/lib/razorpay";
+import { isRegistrationOpen, isWaitlistMode, getProgramDate } from "@/lib/masterclassStatus";
 import type { PaymentPayload } from "@/types/masterclass";
 
 const PROFESSION_OPTIONS = [
@@ -104,6 +105,52 @@ export function RegistrationForm() {
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   }
 
+  async function handleWaitlistSubmit(formValues: RegistrationFormValues) {
+    setState("submitting");
+    const waitlistPayload: PaymentPayload = {
+      name: formValues.fullName,
+      email: formValues.email,
+      mobile: `+91${formValues.mobileNumber.replace(/\D/g, "").slice(-10)}`,
+      city: formValues.city,
+      profession: formValues.profession,
+      amount: "",
+      programm_date: getProgramDate(masterclass),
+      razorpay_order_id: "",
+      razorpay_payment_id: "",
+      razorpay_signature: "",
+      payment_status: "waitlist",
+      captured: "",
+      page_name: masterclass.pageName || "consumer-protection-law-masterclass",
+      ip_address: "",
+      utm_source: getUTM("utm_source"),
+      utm_medium: getUTM("utm_medium"),
+      utm_campaign: getUTM("utm_campaign"),
+      utm_term: getUTM("utm_term"),
+      utm_content: getUTM("utm_content"),
+    };
+
+    // 2. Submit lead to Admin SaaS API
+    try {
+      const success = await submitLeadToAdminPanel(waitlistPayload);
+      if (!success) {
+        console.warn("[AdminAPI] Waitlist registration submission returned false from backend");
+      }
+    } catch (err) {
+      console.error("Database registration failed for waitlist:", err);
+    }
+
+    // 3. Backup submit to Google Sheet
+    const params = new URLSearchParams();
+    Object.entries(waitlistPayload).forEach(([key, val]) =>
+      params.append(key, String(val ?? ""))
+    );
+    await submitToGoogleSheet(params);
+
+    await safeSetPaymentDetails(waitlistPayload);
+    setState("idle");
+    window.location.href = "/thank-you";
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -115,6 +162,11 @@ export function RegistrationForm() {
     const validationErrors = validateRegistrationForm(values);
     setErrors(validationErrors);
     if (hasErrors(validationErrors)) return;
+
+    if (!isRegistrationOpen(masterclass)) {
+      await handleWaitlistSubmit(values);
+      return;
+    }
 
     setState("submitting");
     trackEvent("form_submit");
@@ -242,7 +294,7 @@ export function RegistrationForm() {
 
 
 
-  const isWaitlist = masterclass.registrationStatus === "WAITLIST";
+  const isWaitlist = isWaitlistMode(masterclass);
 
   return (
     <>
@@ -309,33 +361,29 @@ export function RegistrationForm() {
             disabled={state === "submitting"}
           />
 
-          {!isWaitlist && (
-            <>
-              <TextInput
-                id="city"
-                name="city"
-                label="City"
-                required
-                autoComplete="address-level2"
-                value={values.city}
-                onChange={(e) => updateField("city", e.target.value)}
-                error={errors.city}
-                disabled={state === "submitting"}
-              />
+          <TextInput
+            id="city"
+            name="city"
+            label="City"
+            required
+            autoComplete="address-level2"
+            value={values.city}
+            onChange={(e) => updateField("city", e.target.value)}
+            error={errors.city}
+            disabled={state === "submitting"}
+          />
 
-              <SelectInput
-                id="profession"
-                name="profession"
-                label="Current Profession or Status"
-                required
-                options={PROFESSION_OPTIONS}
-                value={values.profession}
-                onChange={(e) => updateField("profession", e.target.value)}
-                error={errors.profession}
-                disabled={state === "submitting"}
-              />
-            </>
-          )}
+          <SelectInput
+            id="profession"
+            name="profession"
+            label="Current Profession or Status"
+            required
+            options={PROFESSION_OPTIONS}
+            value={values.profession}
+            onChange={(e) => updateField("profession", e.target.value)}
+            error={errors.profession}
+            disabled={state === "submitting"}
+          />
 
           <CheckboxInput
             id="consent"
