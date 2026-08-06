@@ -6,6 +6,8 @@ import { trackEvent } from "@/lib/analytics";
 import { useHiddenNear } from "@/lib/useHiddenNear";
 import { cn, toDurationAdjective } from "@/lib/utils";
 
+import { getSectionCtaText } from "@/lib/masterclassStatus";
+
 const WATCH_IDS = ["register", "site-footer"];
 
 /**
@@ -38,7 +40,7 @@ export function MobileStickyCta() {
           className="shrink-0"
           onClick={() => trackEvent("hero_register_click", { source: "mobile_sticky_cta" })}
         >
-          Register Now
+          {getSectionCtaText(masterclass, "Register Now")}
         </Button>
       </div>
     </div>

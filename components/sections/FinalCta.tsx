@@ -6,6 +6,8 @@ import { isConfirmed } from "@/lib/utils";
 import { getMasterclassDetails } from "@/lib/content";
 import { getWhatsappUrl } from "@/lib/whatsapp";
 
+import { getSectionCtaText } from "@/lib/masterclassStatus";
+
 export function FinalCta() {
   const details = getMasterclassDetails({ includeFee: true });
 
@@ -44,7 +46,7 @@ export function FinalCta() {
 
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
           <TrackedButton href="#register" size="lg" event="final_cta_click" eventPayload={{ cta: "register" }}>
-            Register for the Masterclass
+            {getSectionCtaText(masterclass, "Register for the Masterclass")}
           </TrackedButton>
           <TrackedButton
             href={getWhatsappUrl()}

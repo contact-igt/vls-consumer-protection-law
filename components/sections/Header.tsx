@@ -8,6 +8,8 @@ import { Logo } from "@/components/ui/Logo";
 import { NAV_LINKS } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
+import { masterclass } from "@/data/masterclass";
+import { getSectionCtaText, isWaitlistMode } from "@/lib/masterclassStatus";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -102,8 +104,8 @@ export function Header() {
             className="px-3 text-xs sm:px-5 sm:text-sm md:text-base"
             onClick={() => trackEvent("header_register_click")}
           >
-            <span className="sm:hidden">Register</span>
-            <span className="hidden sm:inline">Register Now</span>
+            <span className="sm:hidden">{isWaitlistMode(masterclass) ? "Waitlist" : "Register"}</span>
+            <span className="hidden sm:inline">{getSectionCtaText(masterclass, "Register Now")}</span>
           </Button>
           <button
             type="button"
@@ -155,7 +157,7 @@ export function Header() {
                 handleNavClick();
               }}
             >
-              Register Now
+              {getSectionCtaText(masterclass, "Register Now")}
             </Button>
           </Container>
         </div>

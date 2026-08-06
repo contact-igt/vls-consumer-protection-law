@@ -2,6 +2,7 @@ import { CalendarDays, Clock, Timer, MonitorSmartphone, Languages, IndianRupee, 
 import { masterclass } from "@/data/masterclass";
 import type { AgendaItem, FaqItem, FastFact } from "@/types/masterclass";
 import { isConfirmed } from "@/lib/utils";
+import { isRegistrationOpen, DATE_TIME_ANNOUNCEMENT_TEXT, PRICE_ANNOUNCEMENT_TEXT } from "@/lib/masterclassStatus";
 
 const UNCONFIRMED_LABEL = "To be confirmed";
 
@@ -14,15 +15,22 @@ export interface MasterclassDetail {
 /** The Date/Time/Duration/Format/Language(/Fee) detail list shown in both
  * the hero and the final CTA — one source so the two never drift apart. */
 export function getMasterclassDetails({ includeFee = false } = {}): MasterclassDetail[] {
+  const registrationOpen = isRegistrationOpen(masterclass);
+
   const details: MasterclassDetail[] = [
-    { icon: CalendarDays, label: "Date", value: masterclass.displayDate },
+    {
+      icon: CalendarDays,
+      label: "Date",
+      value: registrationOpen ? masterclass.displayDate : DATE_TIME_ANNOUNCEMENT_TEXT,
+    },
     {
       icon: Clock,
       label: "Time",
-      value:
-        isConfirmed(masterclass.startTime) && isConfirmed(masterclass.endTime)
+      value: registrationOpen
+        ? isConfirmed(masterclass.startTime) && isConfirmed(masterclass.endTime)
           ? `${masterclass.startTime} – ${masterclass.endTime} ${masterclass.timeZone}`
-          : UNCONFIRMED_LABEL,
+          : UNCONFIRMED_LABEL
+        : DATE_TIME_ANNOUNCEMENT_TEXT,
     },
     { icon: Timer, label: "Duration", value: masterclass.duration },
     { icon: MonitorSmartphone, label: "Format", value: isConfirmed(masterclass.format) ? masterclass.format : UNCONFIRMED_LABEL },
@@ -33,7 +41,11 @@ export function getMasterclassDetails({ includeFee = false } = {}): MasterclassD
     details.push({
       icon: IndianRupee,
       label: "Fee",
-      value: masterclass.fee !== null ? `₹${masterclass.fee.toLocaleString("en-IN")}` : UNCONFIRMED_LABEL,
+      value: registrationOpen
+        ? masterclass.fee !== null
+          ? `₹${masterclass.fee.toLocaleString("en-IN")}`
+          : UNCONFIRMED_LABEL
+        : PRICE_ANNOUNCEMENT_TEXT,
     });
   }
 
@@ -111,6 +123,9 @@ export function resolveFastFacts(): FastFact[] {
       return { ...fact, value: isConfirmed(masterclass.format) ? masterclass.format : null };
     }
     if (fact.id === "fee") {
+      if (!isRegistrationOpen(masterclass)) {
+        return { ...fact, value: PRICE_ANNOUNCEMENT_TEXT, visible: true };
+      }
       return { ...fact, value: masterclass.fee !== null ? `₹${masterclass.fee.toLocaleString("en-IN")}` : null };
     }
     if (fact.id === "certificate") {

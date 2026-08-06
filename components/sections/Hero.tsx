@@ -9,6 +9,7 @@ import { masterclass } from "@/data/masterclass";
 import { toDurationAdjective } from "@/lib/utils";
 import { getMasterclassDetails } from "@/lib/content";
 import { VLS_ASSETS } from "@/lib/assets";
+import { getSectionCtaText } from "@/lib/masterclassStatus";
 
 const HERO_POINTS = [
   "Consumer Protection Law essentials",
@@ -102,7 +103,7 @@ export function Hero() {
 
           <div className={`${ENTER} mt-8 flex flex-col gap-3 sm:flex-row`} style={{ animationDelay: "320ms" }}>
             <TrackedButton href="#register" size="lg" event="hero_register_click" eventPayload={{ source: "hero_primary_cta" }}>
-              Register for the Masterclass
+              {getSectionCtaText(masterclass, "Register for the Masterclass")}
             </TrackedButton>
             <Button href="#curriculum" size="lg" variant="outlineLight">
               View What You&rsquo;ll Learn
