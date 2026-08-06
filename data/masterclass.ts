@@ -25,6 +25,8 @@ export const masterclass: MasterclassConfig = {
   startTime: "10:30 AM",
   endTime: "01:30 PM",
   timeZone: "IST",
+  classStartAt: "2026-08-01T10:30:00+05:30",
+  pageName: "consumer-protection-law-masterclass",
 
   format: "Online (Live)",
   platform: "Google Meet",

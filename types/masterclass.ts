@@ -143,6 +143,8 @@ export interface MasterclassConfig {
   startTime: string | "TO_BE_CONFIRMED";
   endTime: string | "TO_BE_CONFIRMED";
   timeZone: string;
+  classStartAt?: string;
+  pageName?: string;
   format: MasterclassFormat;
   platform: string | null;
   venue: string | null;
